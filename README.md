@@ -1,3 +1,3 @@
-# Universidade
+# University Projects
 
-Este repositório foi criado para guardar os projetos realizados na universidade.
+This repository is to save projects developed during university.
