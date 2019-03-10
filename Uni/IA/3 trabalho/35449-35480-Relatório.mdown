@@ -1,0 +1,114 @@
+# Inteligência Artificial - Trabalho 3
+
+## Elementos
+
+
+ Número | Primeiro Nome + Apelido
+--------|-------------------------
+35449 | Alexandre Rodrigues
+35480 | Pedro Oliveira
+
+## Respostas
+
+### Grupo 1
+
+#### Pergunta 1.1
+
+A estrutura de dados que escolhemos para representar o jogo foi uma lista, com o seguinte estado inicial:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_inicial(e(a, [1,2,3,4])).
+
+#### Pergunta 1.2
+
+Estado terminal usado:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_terminal(e(\_, N)) :- alvo(N).
+
+#### Pergunta 1.3
+
+utilidade(e(b, N), +1) :- alvo(N).
+utilidade(e(a, N), -1) :- alvo(N).
+utilidade(e(\_, \_), 0)  :- alvo(\_).
+
+####  Pergunta 1.4
+
+sucessor(e(J, [A,B,C,D]), menos(Q, L), e(K, Y)) :-
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;opmenos(j(Q, L), [A, B, C, D], X),
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y = X,
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outro(J, K).
+
+opmenos(j(1,1), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A > 0,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A1, B, C, D].
+			
+opmenos(j(1,2), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B > 0,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B1 is B - 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B1, C, D].
+			
+opmenos(j(2,2), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B > 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;B1 is B - 2,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B1, C, D].
+			
+opmenos(j(1,3), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C > 0,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C1 is C - 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C1, D].
+			
+opmenos(j(2,3), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C > 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C1 is C - 2,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C1, D].
+			
+opmenos(j(3,3), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C > 2,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;C1 is C - 3,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C1, D].
+			
+opmenos(j(1,4), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D > 0,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D1 is D - 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C, D1].
+			
+opmenos(j(2,4), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D > 1,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D1 is D - 2,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C, D1].
+			
+opmenos(j(3,4), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D > 2,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D1 is D - 3,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C, D1].
+			
+opmenos(j(4,4), [A, B, C, D], X):-
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D > 3,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D1 is D - 4,
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X = [A, B, C, D1].
+
+### Grupo 2
+
+#### Pergunta 2.1
+
+A estrutura de dados que escolhemos para representar o jogo foi uma lista, com o seguinte estado inicial:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_inicial(e(x, [a,a,a,a,a,a,a,a,a])).
+
+#### Pergunta 2.2
+
+Estado terminal usado:
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alvo([0,0,0,0]).
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_terminal(e(\_,N)):- alvo(N).
+
+#### Pergunta 2.3
+
+utilidade(e(x, N), +1) 	:- alvo(N).
+utilidade(e(o, N), -1) 	:- alvo(N).
+utilidade(e(x, \_), 0) 	:- alvo(\_).
+utilidade(e(o, \_), 0) 	:- alvo(\_).
+
+## Programas Usados
+
+- `padversario.pl`: para que serve
+- `nim.pl`: para que serve
+- `galo.pl`: para que serve
+
+

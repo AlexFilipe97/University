@@ -1,0 +1,146 @@
+# Inteligência Artificial - Trabalho 1
+
+## Elementos
+
+35449 | Alexandre Rodrigues
+35480 | Pedro Oliveira
+
+## Respostas
+
+### Grupo 1	
+
+#### Pergunta 1
+
+Espaço de estados:
+
+estado_inicial(e(7, (0,2), [(1,2)], [(2,1)], (4,3) )).
+
+estado_final(e(\_, A, [], B, (4,3))):- 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member(A, B).
+
+Operadores de transição:
+
+tr(
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A, B, C, \_, \_),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;limpar,
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A1, B, C1, \_, \_),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;):- A > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member(B, C),
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete(C, B, C1).
+
+tr(
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A, (X, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cima,
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A1, (X, Y1), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) :-A > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1,
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y1 is Y - 1.
+
+tr(
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A, (X, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;direita,
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A1, (X1, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) :-A > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1, 
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X1 is X + 1,
+	    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X1 < N.
+
+tr(
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A, (X, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;baixo,
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A1, (X, Y1), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) :- A > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y1 is Y + 1,
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Y1 < M.
+
+tr(
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A, (X, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;esquerda,
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;e(A1, (X1, Y), C, D, (N, M)),
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;) :-A > 0,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A1 is A - 1,
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X > 0,
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;X1 is X - 1.
+
+#### Pergunta 2
+
+Código fornecido nas aulas práticas:
+
+pesquisa_largura(
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[ no(Ef, Pai, Op, C, P) | R],
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\_,
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no(Ef, Pai, Op, C, P),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stat(1, LL)) :-
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;estado_final(Ef),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;length(R, L1),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;LL is L1 + 1.
+
+pesquisa_largura( [N | R], V, S, Stats) :-
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N = no(E, \_, \_, \_, \_),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;member(E, V), !, % Não expandir estados visitados.
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pesquisa_largura(R, V, S, Stats).
+
+pesquisa_largura([N | Resto], V, Solucao, stat(NN1, LL1)) :-
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;N = no(E, \_, \_, \_, \_),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;expande_largura(N, Filhos),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;append(Resto, Filhos, Seguintes),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pesquisa_largura(Seguintes, [E | V], Solucao, stat(NN, LL)),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NN1 is NN + 1,
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;length(Seguintes, LenSeguintes),
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;max(LenSeguintes, LL, LL1).
+
+expande_largura(no(E, A, O, C, P), Filhos) :-
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;findall(
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;no(Enovo, no(E, A, O, C, P), Onovo, Cnovo, Pnovo),
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(   tr(E, Onovo, Enovo, Cop),
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Pnovo is P + 1,
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cnovo is C + Cop ),
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Filhos).
+
+#### Pergunta 3
+
+Escolhemos este algoritmo porque permite-nos ver todos os nós diretamente ao lado do estado atual.
+
+##### Pergunta 3.i
+
+O total de estados visitados é 1126.
+
+##### Pergunta 3.ii
+
+O número máximo de estados que ficaram simultaneamente em memória é 229.
+
+### Grupo 2
+
+#### Pergunta 1
+
+#### Pergunta 2.i
+
+#### Pergunta 2.ii
+
+### Grupo 3
+
+#### Pergunta 1
+
+#### Pergunta 2
+
+#### Pergunta 3
+
+#### Pergunta 4
+
+## Programas Usados
+
+- `lib.pl`: É onde está implementado o código de pesquisa em largura
+- `asp.pl`: É onde estão implementados os estados inicial, final e os operadores de transição.
+- `tools.pl` : ???
+- `lib2.pl` : É onde está implementada a chamada da pesquisa.
+- `heuristica.pl` : É onde está implementada a função heurística que ajuda a escolher o caminho do aspirador, e o algoritmo de pesquisa "manhattan".
+
+

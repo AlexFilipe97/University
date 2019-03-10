@@ -1,0 +1,34 @@
+------------ Relatório do Trabalho prático ------------
+
+Elementos do grupo:
+
+.Alexandre Rodrigues - 35449 
+.Beatriz Alvito - 12149
+.Pedro Nunes - 31240
+
+
+Detalhe da implementação: 
+
+A linguagem escolhida para a implementação do trabalho foi o python. Para realizar operações no ficheiro decidimos usar o package Json, de modo a ser mais simples a escrita no ficheiro, e também a leitura da sua informação, onde os dados da lista telefónica estão guardados.
+A estrutura que usámos para guardar os dados foi um dicionário. Mais especificamente um dicionário em que as chaves são os nomes e cada nome tem um array de números de telefone.
+Para o servidor temos como base o ficheiro selectserver.py, o qual foi providenciado nas aulas práticas da unidade curricular. 
+
+Funções do servidor:
+->readfile() - abre o ficheiro (criando-o se necessário) chamado "lista_telefonica.txt" e dá load do que ele contém para o dicionário agenda.
+->writefile() - insere tudo o que está no dicionário para o ficheiro.
+->SETNUMBER(data) - cria uma entrada no dicionário com um novo contacto
+->operacao(data, sock) - realiza a operação de acordo com a mensagem recebida do cliente
+
+Funções do cliente:
+->getinput() - lê o comando introduzido pelo utilizador no terminal
+->whichinput(command) - recebe o comando do utilizador e transforma-o para poder ser enviado para o servidor
+->output(data) - função que recebe a resposta do servidor e apresenta-a ao utilizador pelo terminal
+
+No nosso trabalho apenas está implementado o sistema base, devido a vários fatores não nos foi possível concluir os restantes tópicos pedidos no enunciado, tais como o servidor de backup, a autenticação e a encriptação.
+Os comandos devem ser inseridos na seguinte forma:
+
+Obter números associados a um nome: 	getphone "Nome"
+Obter nomes associados a um número:	getphone Número
+Criar novo contacto:			getphone -set "Nome" Número
+Apagar um número:			getphone -del "Nome" Número
+Apagar um nome:				getphone -del "Nome"

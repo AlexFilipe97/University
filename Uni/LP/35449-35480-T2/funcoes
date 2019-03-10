@@ -1,0 +1,142 @@
+for i < newArray.tamanho
+{
+	if (strcmp(Label.current,Label.requested)) == 0
+	{
+		pc.new = Label.current.index;
+	}
+}
+Ra.new = pc + 1;
+pc = pc.new - 1
+
+(locais)
+
+if blocoCoisas.tamanho >= blocoCoisas.espacoAlocado
+{
+	blocoCoisas.espacoAlocado * 2;
+}
+
+if bloco.current.flag == 0
+{
+	bloco.current.flag = 1;
+}
+
+else
+{
+	bloco.current.nArgs = locais.inteiro1;
+	bloco.current.nVars = locais.inteiro2;
+	bloco.current.flag = 1;
+	bloco.current.Ra = tempRa;
+}
+
+while(temp1.notEmpty)
+{
+	push(temp2, temp1.pop);
+}
+
+i = 0;
+while(temp2.notEmpty)
+{
+	bloco.current.arrayArgs[i++] = temp2.pop;
+}
+
+blocoCoisas.tamanho++;
+
+(regressa)
+
+if((bloco.current.tamanho - 1).ra == -1)
+{
+	return
+}
+
+else
+{
+	(bloco.current.tamanho - 1).flag = 0;
+	pc = (bloco.current.tamanho - 1).ra -1;
+	blocoCoisas.tamanho--;
+}
+
+(coloca_arg)
+
+temp1.push(pilha.pop);
+
+(empilha_var)
+
+pos = (blocoCoisas.counter - 1) - empilha_var.inteiro1;
+pilha.push(blocoCoisas[pos].arrayVars(empilha_var.inteiro2 - 1));
+
+(empilha_arg)
+
+pos = (blocoCoisas.counter - 1) - empilha_var.inteiro1;
+pilha.push(blocoCoisas[pos].arrayArgs(empilha_var.inteiro2 - 1));
+
+(empilha)
+
+pilha.push(empilha.inteiro1);
+
+(atribui_var)
+
+pos = (blocoCoisas.counter - 1) - empilha_var.inteiro1;
+val = pilha.pop;
+blocoCoisas[pos].arrayVars[atribui_var.inteiro2 - 1] = val;
+
+(atribu_arg)
+
+pos = (blocoCoisas.counter - 1) - empilha_arg.inteiro1;
+val = pilha.pop;
+blocoCoisas[pos].arrayArgs[atribui_arg.inteiro2 - 1] = val;
+
+(soma)
+
+y = pilha.pop;
+x = pilha.pop;
+x = x + y;
+pilha.push(x);
+
+(sub_)
+
+y = pilha.pop;
+x = pilha.pop;
+x = x - y;
+pilha.push(x);
+
+(mult_)
+
+y = pilha.pop;
+x = pilha.pop;
+x = x * y;
+pilha.push(x);
+
+(div_)
+
+y = pilha.pop;
+x = pilha.pop
+w = 0;
+
+if(y == 0)
+{
+	pilha.push(0);
+}
+else
+{
+	w = x / y;
+	pilha.push(w);
+}
+
+(exp_)
+
+y = pilha.pop;
+x = pilha.pop
+w = 0;
+
+w = pow(x, y);
+pilha.push(w);
+
+(mod)
+
+y = pilha.pop;
+x = pilha.pop;
+x = x % y;
+pilha.push(x);
+
+(sigual)
+
